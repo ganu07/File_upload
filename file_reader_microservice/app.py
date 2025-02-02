@@ -11,6 +11,13 @@ QUEUE_NAME = 'data_queue'
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Rate limiting parameters
+MESSAGE_DELAY = 0.1  # 100ms delay between each message
+MAX_CONCURRENT_PUBLISHES = 10  # Limit to 10 concurrent publishing tasks
+
+# Semaphore to limit concurrent tasks
+semaphore = asyncio.Semaphore(MAX_CONCURRENT_PUBLISHES)
+
 # Publish to RabbitMQ
 async def publish_to_queue(data):
     # Establish an async connection to RabbitMQ
@@ -31,12 +38,20 @@ async def publish_to_queue(data):
             # Log the data being sent
             logger.info(f"Sent: {data}")
 
+# Rate-limited publish function
+async def publish_to_queue_with_rate_limit(data):
+    # Acquire the semaphore to limit concurrent tasks
+    async with semaphore:
+        await publish_to_queue(data)
+        # Apply the message delay to rate limit the publishing speed
+        await asyncio.sleep(MESSAGE_DELAY)
+
 # Read a file asynchronously and publish its content
 async def process_file(file_path):
     async with aiofiles.open(file_path, mode='r') as file:
         async for line in file:
             data = {"line": line.strip()}
-            await publish_to_queue(data)
+            await publish_to_queue_with_rate_limit(data)
 
 # Read multiple files concurrently
 async def read_multiple_files(file_paths):

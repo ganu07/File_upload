@@ -1,4 +1,4 @@
-# README: Microservices Project
+# README: File upload Project
 
 ## Overview
 This project demonstrates a microservices architecture with the following components:
@@ -162,3 +162,28 @@ CREATE TABLE file_data (
     line_data TEXT NOT NULL
 );
 ```
+
+## Microservice logs
+1. File upload microservice logs
+
+<img width="1343" alt="Screenshot 2025-02-02 at 6 51 19 PM" src="https://github.com/user-attachments/assets/662a432d-f5f0-46e7-bdb6-771f4827bea7" />
+
+2. Data consumer logs -> consume and inserted in DB
+   
+<img width="1343" alt="Screenshot 2025-02-02 at 6 52 48 PM" src="https://github.com/user-attachments/assets/7bc6cd10-85d8-4297-93f1-622ac1674b59" />
+
+3. Api server logs
+   
+<img width="1343" alt="Screenshot 2025-02-02 at 6 53 46 PM" src="https://github.com/user-attachments/assets/c3e40b9a-2b40-4d54-ac24-8291b32b3cc9" />
+
+4. Postman API snapshot
+<img width="985" alt="Screenshot 2025-02-02 at 6 55 18 PM" src="https://github.com/user-attachments/assets/89749da0-5e85-4ba0-b541-b03035841ca8" />
+
+Rate limiter snapshot
+<img width="985" alt="Screenshot 2025-02-02 at 6 55 42 PM" src="https://github.com/user-attachments/assets/a9813af3-5573-42aa-ab33-5d91a330ac60" />
+
+
+5. Data base Snapshot
+
+<img width="1343" alt="Screenshot 2025-02-02 at 6 54 42 PM" src="https://github.com/user-attachments/assets/47d8ab90-90b0-44ad-90dc-4e647518e55e" />
+
